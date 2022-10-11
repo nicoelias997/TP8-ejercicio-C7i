@@ -10,27 +10,24 @@ const Mapa = () => {
     const [clima, setClima] = useState("")
 
     const validaciones = ciudadElegida => {
-        console.log(ciudadElegida)
-        return true
-    // for(let i = 0; i < ciudades.length; i++){
-    //     for(let propiedades in ciudades){
-    //         if(ciudades[propiedades].name === ciudadElegida){
-    //             console.log("vamo")
-    //         } else {
-    //             console.log("No existe una ciudad con ese nombre")
-                
-    //         }
-    //     }
-    // }
+        const haveCity = ciudades.find(ciudadArray => ciudadArray.name === ciudadElegida)
+        if(haveCity){
+            console.log(ciudadElegida)
+            return true
+        } else {
+            alert("No encontramos una ciudad con ese nombre, prueba London")
+            return
+        }
+        
         
     }
 
     const buscarClima = async () => {
+        if(validaciones(ciudad)){
 
         try{
             let res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=afd295ef079eff0a0103852b80dc43d5`)
             let data = await res.json()
-            if(validaciones(data.name)){
                 setClima({
                     pais: data.sys.country,
                     ciudad: data.name,
@@ -43,15 +40,13 @@ const Mapa = () => {
                     humedad: data.main.humidity,
                     viento: data.wind.speed
                 })
-            } else {
-                alert("No existe una ciudad con ese nombre")
-            }
 
         } catch(e){
             console.log(e)
         }
-        console.log(clima)
-
+        setCiudad("")
+    } 
+        return
     }
 
   return (
@@ -65,13 +60,13 @@ const Mapa = () => {
         <Row>
             <Form.Group>
                 <Form.Label>Ubicacion:</Form.Label>
-                <Form.Control placeholder='Ingrese su ciudad' onChange={e => setCiudad(e.target.value)}>
+                <Form.Control placeholder='Ingrese su ciudad' value={ciudad} onChange={e => setCiudad(e.target.value)}>
                    
                 </Form.Control>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Pais:</Form.Label>
-                <Form.Control placeholder='Ingrese su Pais' onChange={e => setPais(e.target.value)}>
+                <Form.Control placeholder='Ingrese su Pais' value={pais} onChange={e => setPais(e.target.value)}>
                    
                 </Form.Control>
             </Form.Group>
