@@ -1,10 +1,10 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Mapa from './components/Mapa';
 
 function App() {
   return (
-    <div className="App">
-      Hola mundo
-    </div>
+    <Mapa></Mapa>
   );
 }
 
