@@ -73,7 +73,7 @@ const Mapa = () => {
             </Form.Group>
             <Form.Group className='mt-2 mb-2'>
                 <Form.Label>Pais:</Form.Label>
-                <Form.Control placeholder='Ingrese su Pais' value={pais} onChange={e => setPais(e.target.value)}>
+                <Form.Control placeholder='Ingrese su Pais' disabled value={pais} onChange={e => setPais(e.target.value)}>
                    
                 </Form.Control>
             </Form.Group>
